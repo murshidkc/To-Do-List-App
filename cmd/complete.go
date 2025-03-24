@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"fmt"
+    "os"
 
 	"github.com/spf13/cobra"
 )
@@ -14,14 +15,15 @@ import (
 var completeCmd = &cobra.Command{
 	Use:   "complete <task_id>",
 	Short: "Mark a task as complete",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long: `A longer description that spans multiple lines`,
+    
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("complete called")
+        if(len(args) == 0) {
+            fmt.Fprintln(os.Stderr, "Error: Task Id is required\nUsage: complete <task_id>")
+            return
+        }
+        taskId := args[0]
+		fmt.Println("process with process id", taskId, "is completed")
 	},
 }
 
